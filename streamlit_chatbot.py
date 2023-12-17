@@ -1,34 +1,21 @@
-# streamlit_chatbot.py
-
+from transformers import pipeline
 import streamlit as st
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import langchain
 
-# Load Hugging Face conversational model and tokenizer
-model_name = "microsoft/phi-2"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(model_name)
+# Load the text generation pipeline
+text_generator = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2")
 
-# Wrap the Hugging Face model using langchain.Model
-langchain_model = langchain.Model.from_huggingface(
-    model,
-    tokenizer=tokenizer,
-    input_field="text",
-    output_field="logits",
-)
-
-def main():
+# Streamlit code within the Jupyter Notebook
+def streamlit_code():
     st.title("Chatbot Interface")
 
     user_input = st.text_input("You:")
     if user_input:
-        # Run the chatbot application
-        response_logits = langchain_model(text=user_input)
-        response_text = tokenizer.decode(response_logits[0], skip_special_tokens=True)
+        # Generate text based on user input
+        response_text = text_generator(user_input, max_length=50, num_return_sequences=1)[0]['generated_text']
 
         # Display the conversation
         st.text(f"You: {user_input}")
         st.text(f"Chatbot: {response_text}")
 
-if __name__ == "__main__":
-    main()
+# Run Streamlit app in the notebook
+!streamlit run streamlit_chatbot.py
