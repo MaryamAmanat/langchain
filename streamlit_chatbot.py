@@ -1,10 +1,11 @@
-from transformers import pipeline
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import langchain
 import streamlit as st
 
 # Load the text generation pipeline
 text_generator = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2")
 
-# Streamlit code within the Jupyter Notebook
+# Streamlit code within the script
 def streamlit_code():
     st.title("Chatbot Interface")
 
@@ -17,3 +18,6 @@ def streamlit_code():
         st.text(f"You: {user_input}")
         st.text(f"Chatbot: {response_text}")
 
+# Run the Streamlit code
+if __name__ == "__main__":
+    streamlit_code()
