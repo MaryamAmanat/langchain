@@ -1,0 +1,6 @@
+torch==2.1.2
+torchvision==0.16.2
+torchaudio==2.1.2
+langchain==0.0.350
+transformers==4.36.1
+streamlit==1.29.0
