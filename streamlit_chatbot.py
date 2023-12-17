@@ -17,5 +17,3 @@ def streamlit_code():
         st.text(f"You: {user_input}")
         st.text(f"Chatbot: {response_text}")
 
-# Run Streamlit app in the notebook
-!streamlit run streamlit_chatbot.py
